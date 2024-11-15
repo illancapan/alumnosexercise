@@ -22,6 +22,12 @@ public class StudentService {
     }
 
     public Student addStudent(Student student) {
+        Optional<Student> existingStudent = studentList.stream()
+                .filter(stu -> stu.getId() == student.getId())
+                .findFirst();
+        if (existingStudent.isPresent()) {
+            throw new IllegalArgumentException("A student with this ID already exists.");
+        }
         studentList.add(student);
         return student;
     }
