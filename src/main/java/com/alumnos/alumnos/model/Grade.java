@@ -1,16 +1,28 @@
 package com.alumnos.alumnos.model;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Entity
 public class Grade {
-    private String subject;
-    private double score;
-    private LocalDate date;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String description;
+
+    @OneToMany(mappedBy = "grade")
+    private Set<Student> students;
+
+    @OneToMany(mappedBy = "grade")
+    private Set<Course> courses;
+
+
 }

@@ -1,15 +1,29 @@
 package com.alumnos.alumnos.model;
 
-
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
-@AllArgsConstructor
+@Entity
 public class Course {
-    private String courseId;
-    private String courseName;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String description;
     private int credits;
+
+    @ManyToOne
+    @JoinColumn(name = "grade_id")
+    private Grade grade;
+
+    @ManyToMany(mappedBy = "courses")
+    private Set<Student> students;
+
 }
